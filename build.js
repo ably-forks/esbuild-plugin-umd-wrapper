@@ -1,5 +1,5 @@
-import esbuild from "esbuild";
-import { execSync } from "child_process";
+const esbuild = require("esbuild");
+const { execSync } = require("child_process");
 
 const shouldWatch = process.argv.includes("watch");
 const finalizer = {
