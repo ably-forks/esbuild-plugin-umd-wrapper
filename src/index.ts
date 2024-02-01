@@ -18,6 +18,7 @@ const umdWrapper = (customOptions: UmdOptions = {}) => {
       const umdBannerOptions = {
         external,
         amdLoader: options.amdLoaderName,
+        amdNamedModule: options.amdNamedModule,
         lib: options.libraryName,
       };
       initialOptions.format = "cjs";

@@ -34,7 +34,8 @@ esbuild
 const umdWrapperOptions = {
   libraryName: "myLib", // default is unset
   external: "inherit", // <= default
-  amdLoaderName: "define" // <= default
+  amdLoaderName: "define", // <= default
+  amdNamedModule: true // <= default
 }
 
 // usual esbuild config

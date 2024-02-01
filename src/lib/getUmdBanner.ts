@@ -1,10 +1,10 @@
 import { alphabet } from "./constants";
-const createWrapperWithLib = ({ depsKeys, depsValKey, amdLoader, lib, defineDeps, globalDeps, requireDeps }) => {
+const createWrapperWithLib = ({ depsKeys, depsValKey, amdLoader, amdNamedModule, lib, defineDeps, globalDeps, requireDeps }) => {
   return `(function (g, f) {
     if ("object" == typeof exports && "object" == typeof module) {
       module.exports = f(${requireDeps});
     } else if ("function" == typeof ${amdLoader} && ${amdLoader}.amd) {
-      ${amdLoader}("${lib}", ${defineDeps}, f);
+      ${amdLoader}(${amdNamedModule ? `"${lib}", ` : ""}${defineDeps}, f);
     } else if ("object" == typeof exports) {
       exports["${lib}"] = f(${requireDeps});
     } else {
@@ -31,7 +31,7 @@ var exports = {};
 var module = { exports };`;
 };
 
-export const getUmdBanner = ({ external, amdLoader, lib }) => {
+export const getUmdBanner = ({ external, amdLoader, amdNamedModule, lib }) => {
   const defineDeps = external?.length ? `['${external.join("', '")}']` : "[]";
   const globalDeps = external?.map((x) => `g["${x}"]`).join(", ") ?? "";
   const requireDeps = external?.map((x) => `require('${x}')`).join(", ") ?? "";
@@ -56,6 +56,7 @@ export const getUmdBanner = ({ external, amdLoader, lib }) => {
   };
   if (lib) {
     options.lib = lib;
+    options.amdNamedModule = amdNamedModule;
     return createWrapperWithLib(options);
   }
 

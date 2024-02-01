@@ -3,6 +3,7 @@ export const defaultOptions: UmdOptions = {
   external: "inherit",
   libraryName: "",
   amdLoaderName: "define",
+  amdNamedModule: true,
 };
 export const alphabet = [
   "__da",
